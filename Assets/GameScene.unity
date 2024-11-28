@@ -249,6 +249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 364877496}
   - component: {fileID: 364877495}
+  - component: {fileID: 364877497}
   m_Layer: 0
   m_Name: "\uCE90\uB9AD\uD130_\uC774\uBBF8\uC9C0_\uACFC\uB2C8-removebg-preview"
   m_TagString: Untagged
@@ -323,6 +324,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &364877497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364877494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bf5fe79af1f6f0468359eff83f2117c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 15
 --- !u!1 &399017788
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +403,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &399017790
@@ -922,9 +936,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed641977751ac3d4ab237f63f2e2f475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  startX: 40
-  endX: 100
 --- !u!114 &1262756010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1034,6 +1045,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1522336459}
   - component: {fileID: 1522336458}
+  - component: {fileID: 1522336460}
   m_Layer: 0
   m_Name: "\uCE90\uB9AD\uD130\uC774\uBBF8\uC9C0_\uC2B9\uC900-removebg-preview"
   m_TagString: Untagged
@@ -1108,6 +1120,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1522336460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522336457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7742561bbad4f534eb099b82c880a23b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 15
 --- !u!1 &1526653919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,9 +1231,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed641977751ac3d4ab237f63f2e2f475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  startX: 40
-  endX: 100
 --- !u!114 &1526653923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1290,7 +1312,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1579991906

@@ -1,14 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;  // ¾À ÀüÈ¯À» À§ÇØ ÇÊ¿ä
+using UnityEngine.SceneManagement;
 
-public class startGame : MonoBehaviour
+public class StartGame : MonoBehaviour
 {
-    // ¹öÆ° Å¬¸¯ ½Ã È£ÃâµÇ´Â ÇÔ¼ö
-    public void OnGameStartButtonClicked()
+    // GameSceneìœ¼ë¡œ ì „í™˜í•˜ëŠ” í•¨ìˆ˜
+    public void GoToGameScene()
     {
-        // "GameScene"À¸·Î ¾ÀÀ» ÀüÈ¯
         SceneManager.LoadScene("GameScene");
     }
 }
