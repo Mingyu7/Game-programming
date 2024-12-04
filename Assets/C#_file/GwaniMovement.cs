@@ -30,26 +30,24 @@ public class CharacterController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 공과 충돌하면 캐릭터가 쓰러짐
-        if (collision.gameObject.CompareTag("Ball"))
+        if (collision.gameObject.CompareTag("Ball")) // 공과 충돌
         {
-            // 쓰러짐 상태 활성화
+            Debug.Log("Player hit by the ball!");
+
             isFallen = true;
 
             // Rigidbody 2D Constraints 해제하여 회전 허용
             rb.constraints = RigidbodyConstraints2D.None;
 
-            // 랜덤한 방향으로 약간의 힘을 추가해 자연스러운 쓰러짐
+            // 랜덤한 방향으로 힘을 추가
             Vector2 fallForce = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
             rb.AddForce(fallForce * 2f, ForceMode2D.Impulse);
 
-            // 쓰러진 후 고정 (선택 사항)
-            Invoke("FreezeAfterFall", 1f); // 1초 후 고정
+            Invoke(nameof(FreezeAfterFall), 1f); // 1초 후 고정
         }
     }
 
-    // 캐릭터가 쓰러진 상태에서 멈추도록 설정
-    void FreezeAfterFall()
+    private void FreezeAfterFall()
     {
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
     }

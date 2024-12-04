@@ -28,9 +28,35 @@ public class BallBounce : MonoBehaviour
         }
         else if (collision.CompareTag("Wall"))
         {
-            // 벽과의 충돌: 반사 벡터 계산
-            Vector2 normal = collision.ClosestPoint(transform.position) - (Vector2)transform.position;
-            bounceDirection = normal.normalized;
+            // 벽과의 충돌: 벽의 위치를 기반으로 반사 방향 계산
+            if (collision.transform.position.y > transform.position.y) // 위쪽 벽에 닿음
+            {
+                bounceDirection = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y)).normalized; // 아래로 튕김
+            }
+            else if (collision.transform.position.x < transform.position.x) // 왼쪽 벽에 닿음
+            {
+                bounceDirection = new Vector2(1, rb.velocity.y).normalized; // 오른쪽으로 튕김
+            }
+            else if (collision.transform.position.x > transform.position.x) // 오른쪽 벽에 닿음
+            {
+                bounceDirection = new Vector2(-1, rb.velocity.y).normalized; // 왼쪽으로 튕김
+            }
+        }
+        else if (collision.gameObject.name == "wall_floor_1") // 왼쪽 아래 벽
+        {
+            // 오른쪽 플레이어 점수 증가
+            ScoreManager.Instance.AddRightScore(1);
+
+            // 공 삭제
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.name == "wall_floor_2") // 오른쪽 아래 벽
+        {
+            // 왼쪽 플레이어 점수 증가
+            ScoreManager.Instance.AddLeftScore(1);
+
+            // 공 삭제
+            Destroy(gameObject);
         }
 
         // 새로운 힘 적용
