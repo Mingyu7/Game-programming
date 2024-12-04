@@ -1,6 +1,9 @@
  # 게임프로그래밍 3조
+![image](https://github.com/user-attachments/assets/39ebb3c1-f35d-45af-82a5-bc743cbfed04)
+
 
 ## 과목 소개
+
 
 유니티를 이용하여 게임제작
 
@@ -19,8 +22,9 @@
  
 
 ## 개발 환경
+![ui,c#](https://github.com/user-attachments/assets/02c43bed-b1a3-4e6a-aa6b-7f2c06d08434)
 
-유니티 , C#
+
 
 # 주요기능
 
