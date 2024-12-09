@@ -1,21 +1,30 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // ì”¬ ì „í™˜ì„ ìœ„í•´ ì¶”ê°€
+using UnityEngine.SceneManagement; // ?”¬ ? „?™˜?„ ?œ„?•´ ì¶”ê??
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager Instance; // ì‹±ê¸€í†¤ ì¸ìŠ¤í„´ìŠ¤
+    public static ScoreManager Instance; // ?‹±ê¸??†¤ ?¸?Š¤?„´?Š¤
 
-    public int leftScore = 0; // ì™¼ìª½ í”Œë ˆì´ì–´ ì ìˆ˜
-    public int rightScore = 0; // ì˜¤ë¥¸ìª½ í”Œë ˆì´ì–´ ì ìˆ˜
+    public int leftScore = 0; // ?™¼ìª? ?”Œ? ˆ?´?–´ ? ?ˆ˜
+    public int rightScore = 0; // ?˜¤ë¥¸ìª½ ?”Œ? ˆ?´?–´ ? ?ˆ˜
 
-    public UnityEngine.UI.Text leftScoreText; // ì™¼ìª½ ì ìˆ˜ UI
-    public UnityEngine.UI.Text rightScoreText; // ì˜¤ë¥¸ìª½ ì ìˆ˜ UI
+    public UnityEngine.UI.Text leftScoreText; // ?™¼ìª? ? ?ˆ˜ UI
+    public UnityEngine.UI.Text rightScoreText; // ?˜¤ë¥¸ìª½ ? ?ˆ˜ UI
 
-    public int maxScore = 11; // ìµœëŒ€ ì ìˆ˜ (GameOverë¡œ ì „í™˜)
+    public int maxScore = 11; // ìµœë?? ? ?ˆ˜ (GameOverë¡? ? „?™˜)
+    public int GetRightScore()
+    {
+    return rightScore;
+    }
+
+    public int GetLeftScore()
+    {
+        return leftScore;
+    }
 
     void Awake()
     {
-        // ì‹±ê¸€í†¤ ì„¤ì •
+        // ?‹±ê¸??†¤ ?„¤? •
         if (Instance == null)
         {
             Instance = this;
@@ -23,50 +32,51 @@ public class ScoreManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-            return; // ì¤‘ë³µëœ ì˜¤ë¸Œì íŠ¸ê°€ íŒŒê´´ëœ ê²½ìš° ì´ˆê¸°í™” ë°©ì§€
+            return; // ì¤‘ë³µ?œ ?˜¤ë¸Œì ?Š¸ê°? ?ŒŒê´´ëœ ê²½ìš° ì´ˆê¸°?™” ë°©ì??
         }
 
-        // ì ìˆ˜ UI ì´ˆê¸°í™”
+        // ? ?ˆ˜ UI ì´ˆê¸°?™”
         UpdateScoreText();
     }
 
-    // ì™¼ìª½ ì ìˆ˜ ì¶”ê°€
+    // ?™¼ìª? ? ?ˆ˜ ì¶”ê??
     public void AddLeftScore(int amount)
     {
         leftScore += amount;
         UpdateScoreText();
-        CheckGameOver(); // GameOver ì¡°ê±´ í™•ì¸
+        CheckGameOver(); // GameOver ì¡°ê±´ ?™•?¸
     }
 
-    // ì˜¤ë¥¸ìª½ ì ìˆ˜ ì¶”ê°€
+    // ?˜¤ë¥¸ìª½ ? ?ˆ˜ ì¶”ê??
     public void AddRightScore(int amount)
     {
         rightScore += amount;
         UpdateScoreText();
-        CheckGameOver(); // GameOver ì¡°ê±´ í™•ì¸
+        CheckGameOver(); // GameOver ì¡°ê±´ ?™•?¸
     }
 
-    // ì ìˆ˜ UI ì—…ë°ì´íŠ¸
+    // ? ?ˆ˜ UI ?—…?°?´?Š¸
     private void UpdateScoreText()
     {
         if (leftScoreText != null)
         {
-            leftScoreText.text = leftScore.ToString(); // ì ìˆ˜ë§Œ í‘œì‹œ
+            leftScoreText.text = leftScore.ToString(); // ? ?ˆ˜ë§? ?‘œ?‹œ
         }
 
         if (rightScoreText != null)
         {
-            rightScoreText.text = rightScore.ToString(); // ì ìˆ˜ë§Œ í‘œì‹œ
+            rightScoreText.text = rightScore.ToString(); // ? ?ˆ˜ë§? ?‘œ?‹œ
         }
     }
 
-    // ê²Œì„ ì¢…ë£Œ ì¡°ê±´ í™•ì¸
+    // ê²Œì„ ì¢…ë£Œ ì¡°ê±´ ?™•?¸
     private void CheckGameOver()
     {
         if (leftScore >= maxScore || rightScore >= maxScore)
         {
-            // GameOver ì”¬ìœ¼ë¡œ ì´ë™
+            // GameOver ?”¬?œ¼ë¡? ?´?™
             SceneManager.LoadScene("GameOver");
         }
     }
+    
 }

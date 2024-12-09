@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class CharacterController : MonoBehaviour
 {
-    public float moveSpeed = 5f; // ìºë¦­í„° ì´ë™ ì†ë„
+    public float moveSpeed = 5f; // ìºë¦­?„° ?´?™ ?†?„
     private Rigidbody2D rb;
-    private bool isFallen = false; // ìºë¦­í„°ê°€ ì“°ëŸ¬ì¡ŒëŠ”ì§€ ì—¬ë¶€
+    private bool isFallen = false; // ìºë¦­?„°ê°? ?“°?Ÿ¬ì¡ŒëŠ”ì§? ?—¬ë¶?
 
     void Start()
     {
@@ -13,39 +13,22 @@ public class CharacterController : MonoBehaviour
 
     void Update()
     {
-        // ìºë¦­í„°ê°€ ì“°ëŸ¬ì§€ì§€ ì•Šì•˜ì„ ë•Œë§Œ ì›€ì§ì„ í—ˆìš©
+        // ìºë¦­?„°ê°? ?“°?Ÿ¬ì§?ì§? ?•Š?•˜?„ ?•Œë§? ???ì§ì„ ?—ˆ?š©
         if (!isFallen)
         {
-            // A í‚¤ì™€ D í‚¤ë¡œ ì´ë™ ì œì–´
-            if (Input.GetKey(KeyCode.A)) // A í‚¤ë¥¼ ëˆ„ë¥´ë©´ ì™¼ìª½ìœ¼ë¡œ ì´ë™
+            // A ?‚¤??? D ?‚¤ë¡? ?´?™ ? œ?–´
+            if (Input.GetKey(KeyCode.A)) // A ?‚¤ë¥? ?ˆ„ë¥´ë©´ ?™¼ìª½ìœ¼ë¡? ?´?™
             {
                 transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
             }
-            else if (Input.GetKey(KeyCode.D)) // D í‚¤ë¥¼ ëˆ„ë¥´ë©´ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™
+            else if (Input.GetKey(KeyCode.D)) // D ?‚¤ë¥? ?ˆ„ë¥´ë©´ ?˜¤ë¥¸ìª½?œ¼ë¡? ?´?™
             {
                 transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
             }
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ball")) // ê³µê³¼ ì¶©ëŒ
-        {
-            Debug.Log("Player hit by the ball!");
-
-            isFallen = true;
-
-            // Rigidbody 2D Constraints í•´ì œí•˜ì—¬ íšŒì „ í—ˆìš©
-            rb.constraints = RigidbodyConstraints2D.None;
-
-            // ëœë¤í•œ ë°©í–¥ìœ¼ë¡œ í˜ì„ ì¶”ê°€
-            Vector2 fallForce = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-            rb.AddForce(fallForce * 2f, ForceMode2D.Impulse);
-
-            Invoke(nameof(FreezeAfterFall), 1f); // 1ì´ˆ í›„ ê³ ì •
-        }
-    }
+    
 
     private void FreezeAfterFall()
     {

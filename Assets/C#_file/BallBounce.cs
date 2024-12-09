@@ -1,75 +1,60 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BallBounce : MonoBehaviour
 {
-    public float bounceForce = 10f; // ê³µì´ íŠ•ê¸°ëŠ” í˜
-    private Rigidbody2D rb;
+    // ½ºÆù Æ÷ÀÎÆ®¸¦ ¼³Á¤ÇÒ º¯¼ö
+    public Transform spawnPoint;
 
-    void Start()
+    // °øÀÌ ¹Ù´Ú¿¡ ´ê¾Ò´ÂÁö °¨Áö
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Rigidbody 2D ì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤.
-        rb = GetComponent<Rigidbody2D>();
-
-        // ì´ˆê¸° ì†ë„ë¥¼ ì•„ë˜ ë°©í–¥ìœ¼ë¡œ ì„¤ì •
-        Vector2 initialDirection = new Vector2(0, -1).normalized; // ì•„ë˜ ë°©í–¥
-        rb.velocity = initialDirection * bounceForce;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        // ì¶©ëŒí•œ ì˜¤ë¸Œì íŠ¸ì˜ íƒœê·¸ í™•ì¸
-        Vector2 bounceDirection = Vector2.zero;
-
-        if (collision.CompareTag("Player"))
+        // WallFloor1 ¶Ç´Â WallFloor2 ÅÂ±×¿¡ ¹İÀÀ
+        if (collision.gameObject.CompareTag("WallFloor1"))
         {
-            // í”Œë ˆì´ì–´ì™€ì˜ ì¶©ëŒ: í•­ìƒ ìœ„ìª½ìœ¼ë¡œ íŠ•ê¸°ê²Œ ì„¤ì •
-            bounceDirection = (transform.position - collision.transform.position).normalized;
-            bounceDirection.y = Mathf.Abs(bounceDirection.y); // ìœ„ë¡œ íŠ•ê¸°ë„ë¡ ë³´ì •
-        }
-        else if (collision.CompareTag("Wall"))
-        {
-            // ë²½ê³¼ì˜ ì¶©ëŒ: ë²½ì˜ ìœ„ì¹˜ë¥¼ ê¸°ë°˜ìœ¼ë¡œ ë°˜ì‚¬ ë°©í–¥ ê³„ì‚°
-            if (collision.transform.position.y > transform.position.y) // ìœ„ìª½ ë²½ì— ë‹¿ìŒ
-            {
-                bounceDirection = new Vector2(rb.velocity.x, -Mathf.Abs(rb.velocity.y)).normalized; // ì•„ë˜ë¡œ íŠ•ê¹€
-            }
-            else if (collision.transform.position.x < transform.position.x) // ì™¼ìª½ ë²½ì— ë‹¿ìŒ
-            {
-                bounceDirection = new Vector2(1, rb.velocity.y).normalized; // ì˜¤ë¥¸ìª½ìœ¼ë¡œ íŠ•ê¹€
-            }
-            else if (collision.transform.position.x > transform.position.x) // ì˜¤ë¥¸ìª½ ë²½ì— ë‹¿ìŒ
-            {
-                bounceDirection = new Vector2(-1, rb.velocity.y).normalized; // ì™¼ìª½ìœ¼ë¡œ íŠ•ê¹€
-            }
-        }
-        else if (collision.gameObject.name == "wall_floor_1") // ì™¼ìª½ ì•„ë˜ ë²½
-        {
-            // ì˜¤ë¥¸ìª½ í”Œë ˆì´ì–´ ì ìˆ˜ ì¦ê°€
             ScoreManager.Instance.AddRightScore(1);
-
-            // ê³µ ì‚­ì œ
-            Destroy(gameObject);
+            Debug.Log("WallFloor1: ¿À¸¥ÂÊ ÇÃ·¹ÀÌ¾î Á¡¼ö Áõ°¡!");
+            CheckScoreAndEndGame(); // Á¡¼ö¸¦ È®ÀÎÇÏ°í °ÔÀÓ Á¾·á ¿©ºÎ Ã¼Å©
+            RespawnBall();
         }
-        else if (collision.gameObject.name == "wall_floor_2") // ì˜¤ë¥¸ìª½ ì•„ë˜ ë²½
+        else if (collision.gameObject.CompareTag("WallFloor2"))
         {
-            // ì™¼ìª½ í”Œë ˆì´ì–´ ì ìˆ˜ ì¦ê°€
             ScoreManager.Instance.AddLeftScore(1);
-
-            // ê³µ ì‚­ì œ
-            Destroy(gameObject);
-        }
-
-        // ìƒˆë¡œìš´ í˜ ì ìš©
-        if (bounceDirection != Vector2.zero)
-        {
-            ApplyBounce(bounceDirection);
+            Debug.Log("WallFloor2: ¿ŞÂÊ ÇÃ·¹ÀÌ¾î Á¡¼ö Áõ°¡!");
+            CheckScoreAndEndGame(); // Á¡¼ö¸¦ È®ÀÎÇÏ°í °ÔÀÓ Á¾·á ¿©ºÎ Ã¼Å©
+            RespawnBall();
         }
     }
 
-    private void ApplyBounce(Vector2 direction)
+    // Á¡¼ö¸¦ È®ÀÎÇÏ°í °ÔÀÓ Á¾·á ¿©ºÎ¸¦ ÆÇ´ÜÇÏ´Â ÇÔ¼ö
+    private void CheckScoreAndEndGame()
     {
-        // ê³µì˜ ì†ë„ ì¬ì„¤ì •
-        rb.velocity = Vector2.zero; // ê¸°ì¡´ ì†ë„ ì œê±°
-        rb.AddForce(direction * bounceForce, ForceMode2D.Impulse); // ìƒˆë¡œìš´ í˜ ì ìš©
+        // ¿À¸¥ÂÊ ÇÃ·¹ÀÌ¾î ¶Ç´Â ¿ŞÂÊ ÇÃ·¹ÀÌ¾îÀÇ Á¡¼ö°¡ 11 ÀÌ»óÀÌ¸é °ÔÀÓ Á¾·á
+        if (ScoreManager.Instance.GetRightScore() >= 11 || ScoreManager.Instance.GetLeftScore() >= 11)
+        {
+            Debug.Log("°ÔÀÓ Á¾·á! ¿£µå °ÔÀÓ ¾ÀÀ¸·Î ÀÌµ¿ÇÕ´Ï´Ù.");
+            GoToEndGame();
+        }
+    }
+
+    // °øÀ» ´Ù½Ã »ı¼ºÇÏ´Â ÇÔ¼ö
+    private void RespawnBall()
+    {
+        // °øÀÇ À§Ä¡¸¦ ½ºÆù Æ÷ÀÎÆ®·Î ÀÌµ¿
+        transform.position = spawnPoint.position;
+
+        // °øÀÇ ¼Óµµ¸¦ ÃÊ±âÈ­
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
+    }
+
+    // EndGame ¾ÀÀ¸·Î ÀÌµ¿ÇÏ´Â ÇÔ¼ö
+    public void GoToEndGame()
+    {
+        SceneManager.LoadScene("EndGame");
     }
 }
